@@ -11,11 +11,13 @@ import java.util.regex.Pattern;
 public class Parser {
 
 
-    private static Document getPage() throws IOException {
+    private static Document getPage(int str) throws IOException {
 
       // String url = "http://www.pogoda.spb.ru/";
-        String url =  "http://zakupki.gov.ru/223/plan/public/plan/info/actual-positions.html?planId=377214&planInfoId=2897106&versioned=&activeTab=4&epz=true";
-        Document page = Jsoup.parse(new URL(url),3000);
+        String url1 =  "http://zakupki.gov.ru/223/plan/public/plan/info/positions.html?planInfoId=2897106&planId=377214&d-5492750-p=";
+        String url2 = "&versioned=&activeTab=4&epz=true";
+
+        Document page = Jsoup.parse(new URL(url1+str+url2),60000);
         return page;
     }
 
@@ -38,7 +40,8 @@ public class Parser {
                 if (matcher.find()){
                     return matcher.group();
                 }
-                throw new Exception("Cant extract");
+                return "0";
+                //throw new Exception("Cant extract");
             }
 
     private static int printFourValues(Elements values, int index){
@@ -57,27 +60,43 @@ public class Parser {
 
     public static void main (String[] args) throws Exception {
 
-        Document page = getPage();
-        Element spisokZakupokNaStraniche = page.select("table[id=planInfoPosition]").first();
-        Elements zakupokiSClassomODD = spisokZakupokNaStraniche.select("tr[class=odd]");
-        Elements zakupokiSClassomEVEN = spisokZakupokNaStraniche.select("tr[class=even]");
 
-       // Elements values = tablePosition.select("tr[valign=top]");
-        int index = 0;
-        for (Element name : zakupokiSClassomODD) {      //перебираем закупки
-            String dateString = name.select("td[style=text-align:left; width:60px;]").text();
-            String nomerPZ = getDateFromString (dateString);
-           // String nomerZakupkiEIS = getNomerZakupkiEISFromString (dateString);
-                                                                                                                            //            ПРЕДМЕТ ДОГОВОРА
-                                                                                                                            //            НАЧАЛЬНАЯ МАКСИМАЛЬНАЯ ЦЕНА ДОГОВОРА
-                                                                                                                            //            РАЗМЕЩЕНИЕ ИЗВЕЩЕНИЯ
-                                                                                                                            //            СРОК ИСПОЛНЕНИЯ ДОГОВОРА
-                                                                                                                            //            ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ
+        for (int str = 1; str < 20; str++) {
 
+            Document page = getPage(str);
+            Element spisokZakupokNaStraniche = page.select("tbody").get(3);
+            Elements zakupokiSClassomODD = spisokZakupokNaStraniche.select("tr");
+            Elements zakupokiSClassomEVEN = spisokZakupokNaStraniche.select("tr[class=even]");
 
-            System.out.println(nomerPZ);
-            int iterationCount =  printFourValues(zakupokiSClassomODD, index);
-            index = index + iterationCount;
+            // Elements values = tablePosition.select("tr[valign=top]");
+            int index = 0;
+            for (Element name : zakupokiSClassomODD) {      //перебираем закупки
+                // String dateString = name.select("td[style=text-align:left; width:60px;]").text();
+                // String nomerPZ = getDateFromString (dateString);
+                // String nomerZakupkiEIS = getNomerZakupkiEISFromString (dateString);
+
+                Elements td = name.select("td");
+
+                //Разбор яцейки с номером плана закупки
+                String nomerPZElement = td.get(0).select("td[style=text-align:left; width:60px;]").text();
+                String nomerPZ = getDateFromString(nomerPZElement);
+                //Разбор яцейки с названием лота
+                String nazvanieLota = td.get(1).text();
+                //Разбор яцейки НАЧАЛЬНАЯ МАКСИМАЛЬНАЯ ЦЕНА ДОГОВОРА
+                String nachalnayaMaxCenalota = td.get(2).text();
+                //Разбор яцейки РАЗМЕЩЕНИЕ ИЗВЕЩЕНИЯ
+                String razmeshenieIzvesheniya = td.get(3).text();
+                //Разбор яцейки  СРОК ИСПОЛНЕНИЯ ДОГОВОРА
+                String srokIspolneniyaDogovora = td.get(4).text();
+                //Разбор яцейки  ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ
+                String dopolnitelnayaInformachiya = td.get(5).text();
+                String NomerZakupkiEIS = getNomerZakupkiEISFromString(dopolnitelnayaInformachiya);
+
+                System.out.println(nomerPZ + "  " + NomerZakupkiEIS);
+
+            }
         }
+
     }
+
 }
