@@ -43,14 +43,6 @@ public class Parser {
 
     private static int printFourValues(Elements values, int index){
         int iterationCount = 4;
-        if (index == 0 )
-        {
-            Element valueLn = values.get(0);
-            boolean isEvening = valueLn.text().contains("Вечер");
-                            if (isEvening){
-                                iterationCount = 2;
-                            }
-        }
         for(int i = 0; i < iterationCount; i++){
             Element valueLine = values.get(index + i);
             for (Element td: valueLine.select("td")){
@@ -75,8 +67,12 @@ public class Parser {
         for (Element name : zakupokiSClassomODD) {      //перебираем закупки
             String dateString = name.select("td[style=text-align:left; width:60px;]").text();
             String nomerPZ = getDateFromString (dateString);
-            String nomerZakupkiEIS = getNomerZakupkiEISFromString (dateString);
-
+           // String nomerZakupkiEIS = getNomerZakupkiEISFromString (dateString);
+                                                                                                                            //            ПРЕДМЕТ ДОГОВОРА
+                                                                                                                            //            НАЧАЛЬНАЯ МАКСИМАЛЬНАЯ ЦЕНА ДОГОВОРА
+                                                                                                                            //            РАЗМЕЩЕНИЕ ИЗВЕЩЕНИЯ
+                                                                                                                            //            СРОК ИСПОЛНЕНИЯ ДОГОВОРА
+                                                                                                                            //            ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ
 
 
             System.out.println(nomerPZ);
