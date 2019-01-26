@@ -13,21 +13,33 @@ public class Parser {
 
     private static Document getPage() throws IOException {
 
-        String url = "http://www.pogoda.spb.ru/";
+      // String url = "http://www.pogoda.spb.ru/";
+        String url =  "http://zakupki.gov.ru/223/plan/public/plan/info/actual-positions.html?planId=377214&planInfoId=2897106&versioned=&activeTab=4&epz=true";
         Document page = Jsoup.parse(new URL(url),3000);
         return page;
     }
 
-  private  static Pattern pattern = Pattern.compile("\\d{2}\\.\\d{2}"); // регулярные выражения
 
-    private static String getDateFromString(String stringDate) throws Exception{
-        Matcher matcher = pattern.matcher(stringDate);
+            private  static Pattern patternPoiskaNomeraPZ = Pattern.compile("\\b\\d{9}\\b"); // регулярные выражения
 
-        if (matcher.find()){
-            return matcher.group();
-        }
-        throw new Exception("Cant extract");
-    }
+            private static String getDateFromString(String stringDate) throws Exception{
+            Matcher matcher = patternPoiskaNomeraPZ.matcher(stringDate);
+            if (matcher.find()){
+                return matcher.group();
+            }
+            throw new Exception("Cant extract");
+              }
+
+            private  static Pattern patternPoiskaNomeraZakupkiEIS = Pattern.compile("№\\d{11},"); // регулярные выражения
+
+
+            private static String getNomerZakupkiEISFromString(String stringDate) throws Exception{
+                Matcher matcher = patternPoiskaNomeraZakupkiEIS.matcher(stringDate);
+                if (matcher.find()){
+                    return matcher.group();
+                }
+                throw new Exception("Cant extract");
+            }
 
     private static int printFourValues(Elements values, int index){
         int iterationCount = 4;
@@ -54,15 +66,21 @@ public class Parser {
     public static void main (String[] args) throws Exception {
 
         Document page = getPage();
-        Element tableWth = page.select("table[class=wt]").first();
-        Elements names = tableWth.select("tr[class=wth]");
-        Elements values = tableWth.select("tr[valign=top]");
+        Element spisokZakupokNaStraniche = page.select("table[id=planInfoPosition]").first();
+        Elements zakupokiSClassomODD = spisokZakupokNaStraniche.select("tr[class=odd]");
+        Elements zakupokiSClassomEVEN = spisokZakupokNaStraniche.select("tr[class=even]");
+
+       // Elements values = tablePosition.select("tr[valign=top]");
         int index = 0;
-        for (Element name : names) {
-            String dateString = name.select("th[id=dt]").text();
-            String date = getDateFromString (dateString);
-            System.out.println(date +"   Явления    Температура   Давл    Влажность    Ветер");
-            int iterationCount =  printFourValues(values, index);
+        for (Element name : zakupokiSClassomODD) {      //перебираем закупки
+            String dateString = name.select("td[style=text-align:left; width:60px;]").text();
+            String nomerPZ = getDateFromString (dateString);
+            String nomerZakupkiEIS = getNomerZakupkiEISFromString (dateString);
+
+
+
+            System.out.println(nomerPZ);
+            int iterationCount =  printFourValues(zakupokiSClassomODD, index);
             index = index + iterationCount;
         }
     }
