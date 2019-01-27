@@ -8,8 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class Parser {
 
@@ -22,26 +21,6 @@ public class Parser {
         Document page = Jsoup.parse(new URL(url1 + str + url2), 60000);
         return page;
     }
-
-
-    private static Pattern patternPoiskaNomeraPZ = Pattern.compile("\\b\\d{9}\\b"); // регулярные выражения
-    private static String getDateFromString(String stringDate) throws Exception {
-        Matcher matcher = patternPoiskaNomeraPZ.matcher(stringDate);
-        if (matcher.find()) {
-            return matcher.group();
-        }
-        throw new Exception("Cant extract");
-    }
-
-    private static Pattern patternPoiskaNomeraZakupkiEIS = Pattern.compile("\\d{11}"); // поиск номера закупки ЕИС
-    private static String getNomerZakupkiEISFromString(String stringDate) throws Exception {
-        Matcher matcher = patternPoiskaNomeraZakupkiEIS.matcher(stringDate);
-        if (matcher.find()) {
-            return matcher.group();
-        }
-        return "0";
-    }
-
 
     public static void main(String[] args) throws Exception {
 
@@ -57,7 +36,7 @@ public class Parser {
 
                 //Разбор яцейки с номером плана закупки
                 String nomerPZElement = td.get(0).select("td[style=text-align:left; width:60px;]").text();
-                String nomerPZ = getDateFromString(nomerPZElement);
+                String nomerPZ = MyPatterns.getDateFromString(nomerPZElement);
                 //Разбор яцейки с названием лота
                 String nazvanieLota = td.get(1).text();
                 //Разбор яцейки НАЧАЛЬНАЯ МАКСИМАЛЬНАЯ ЦЕНА ДОГОВОРА
@@ -68,10 +47,10 @@ public class Parser {
                 String srokIspolneniyaDogovora = td.get(4).text();
                 //Разбор яцейки  ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ
                 String dopolnitelnayaInformachiya = td.get(5).text();
-                String NomerZakupkiEIS = getNomerZakupkiEISFromString(dopolnitelnayaInformachiya);
+                String NomerZakupkiEIS = MyPatterns.getNomerZakupkiEISFromString(dopolnitelnayaInformachiya);
 
                 SpisokZakupok e1 = new SpisokZakupok(nomerPZ, NomerZakupkiEIS, nazvanieLota,//
-                         nachalnayaMaxCenalota, srokIspolneniyaDogovora, razmeshenieIzvesheniya, dopolnitelnayaInformachiya);
+                        nachalnayaMaxCenalota, srokIspolneniyaDogovora, razmeshenieIzvesheniya, dopolnitelnayaInformachiya);
                 list.add(e1);
 
             }
