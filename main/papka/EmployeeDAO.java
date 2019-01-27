@@ -3,12 +3,12 @@
 //
 //public class EmployeeDAO {
 //
-//    public static List<Employee> listEmployees() {
-//        List<Employee> list = new ArrayList<Employee>();
+//    public static List<SpisokZakupok> listEmployees() {
+//        List<SpisokZakupok> list = new ArrayList<SpisokZakupok>();
 //
-//        Employee e1 = new Employee("E01", "Tom", 200.0, 1, null);
-//        Employee e2 = new Employee("E02", "Jerry", 100.2, 2, null);
-//        Employee e3 = new Employee("E03", "Donald", 150.0, 2, null);
+//        SpisokZakupok e1 = new SpisokZakupok("E01", "Tom", 200.0, 1, null);
+//        SpisokZakupok e2 = new SpisokZakupok("E02", "Jerry", 100.2, 2, null);
+//        SpisokZakupok e3 = new SpisokZakupok("E03", "Donald", 150.0, 2, null);
 //        list.add(e1);
 //        list.add(e2);
 //        list.add(e3);

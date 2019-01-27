@@ -1,6 +1,6 @@
 
 
-public class Employee {
+public class SpisokZakupok {
 
     private String nomerPZ;
     private String empName;
@@ -9,8 +9,8 @@ public class Employee {
     private String nachalnayaMaxCenalota;
     private String srokIspolneniyaDogovora;
 
-    public Employee(String nomerPZ, String empName,//
-                    String salary, String nachalnayaMaxCenalota, String srokIspolneniyaDogovora) {
+    public SpisokZakupok(String nomerPZ, String empName,//
+                         String salary, String nachalnayaMaxCenalota, String srokIspolneniyaDogovora) {
         this.nomerPZ = nomerPZ;
         this.empName = empName;
         this.salary = salary;
