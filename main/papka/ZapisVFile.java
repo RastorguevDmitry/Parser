@@ -59,27 +59,46 @@ public class ZapisVFile {
         cell = row.createCell(4, CellType.STRING);
         cell.setCellValue("СРОК ИСПОЛНЕНИЯ ДОГОВОРА");
         cell.setCellStyle(style);
+        //
+        cell = row.createCell(5, CellType.STRING);
+        cell.setCellValue("РАЗМЕЩЕНИЕ ИЗВЕЩЕНИЯ");
+        cell.setCellStyle(style);
+        //
+        cell = row.createCell(6, CellType.STRING);
+        cell.setCellValue("ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ");
+        cell.setCellStyle(style);
 
         // Data
         for (SpisokZakupok emp : list) {
             rownum++;
             row = sheet.createRow(rownum);
 
-            // EmpNo (A)
+            //
             cell = row.createCell(0, CellType.STRING);
-            cell.setCellValue(emp.getEmpNo());
-            // EmpName (B)
+            cell.setCellValue(emp.getnomerPZ());
+            //
             cell = row.createCell(1, CellType.STRING);
-            cell.setCellValue(emp.getEmpName());
-            // Salary (C)
+            cell.setCellValue(emp.getNomerZakupkiEIS());
+            //
             cell = row.createCell(2, CellType.STRING);
-            cell.setCellValue(emp.getSalary());
-            // Grade (D)
+            cell.setCellValue(emp.getnazvanieLota());
+            //
             cell = row.createCell(3, CellType.STRING);
             cell.setCellValue(emp.getNachalnayaMaxCenalota());
-            // Bonus (E)
+            //
             cell = row.createCell(4, CellType.STRING);
             cell.setCellValue(emp.getSrokIspolneniyaDogovora());
+            //РАЗМЕЩЕНИЕ ИЗВЕЩЕНИЯ
+            cell = row.createCell(5, CellType.STRING);
+            cell.setCellValue(emp.getrazmeshenieIzvesheniya());
+            // ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ
+            cell = row.createCell(6, CellType.STRING);
+            cell.setCellValue(emp.getdopolnitelnayaInformachiya());
+
+
+
+
+
 
 //            String formula = "0.1*C" + (rownum + 1) + "*D" + (rownum + 1);
 //            cell = row.createCell(4, CellType.FORMULA);

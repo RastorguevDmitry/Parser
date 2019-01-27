@@ -25,7 +25,6 @@ public class Parser {
 
 
     private static Pattern patternPoiskaNomeraPZ = Pattern.compile("\\b\\d{9}\\b"); // регулярные выражения
-
     private static String getDateFromString(String stringDate) throws Exception {
         Matcher matcher = patternPoiskaNomeraPZ.matcher(stringDate);
         if (matcher.find()) {
@@ -35,15 +34,12 @@ public class Parser {
     }
 
     private static Pattern patternPoiskaNomeraZakupkiEIS = Pattern.compile("\\d{11}"); // поиск номера закупки ЕИС
-
-
     private static String getNomerZakupkiEISFromString(String stringDate) throws Exception {
         Matcher matcher = patternPoiskaNomeraZakupkiEIS.matcher(stringDate);
         if (matcher.find()) {
             return matcher.group();
         }
         return "0";
-
     }
 
 
@@ -51,17 +47,12 @@ public class Parser {
 
         List<SpisokZakupok> list = new ArrayList<SpisokZakupok>();
         for (int str = 1; str <= 2; str++) {
-
             Document page = getPage(str);
             Element spisokZakupokNaStraniche = page.select("tbody").get(3);
             Elements zakupokiSClassomODD = spisokZakupokNaStraniche.select("tr");
             Elements zakupokiSClassomEVEN = spisokZakupokNaStraniche.select("tr[class=even]");
 
             for (Element name : zakupokiSClassomODD) {      //перебираем закупки на странице
-                // String dateString = name.select("td[style=text-align:left; width:60px;]").text();
-                // String nomerPZ = getDateFromString (dateString);
-                // String nomerZakupkiEIS = getNomerZakupkiEISFromString (dateString);
-
                 Elements td = name.select("td"); // перебираем текст в строке
 
                 //Разбор яцейки с номером плана закупки
@@ -79,13 +70,13 @@ public class Parser {
                 String dopolnitelnayaInformachiya = td.get(5).text();
                 String NomerZakupkiEIS = getNomerZakupkiEISFromString(dopolnitelnayaInformachiya);
 
-                SpisokZakupok e1 = new SpisokZakupok(nomerPZ, NomerZakupkiEIS, nazvanieLota, nachalnayaMaxCenalota, srokIspolneniyaDogovora);
+                SpisokZakupok e1 = new SpisokZakupok(nomerPZ, NomerZakupkiEIS, nazvanieLota,//
+                         nachalnayaMaxCenalota, srokIspolneniyaDogovora, razmeshenieIzvesheniya, dopolnitelnayaInformachiya);
                 list.add(e1);
 
             }
         }
         new ZapisVFile(list);
-
     }
 
 }

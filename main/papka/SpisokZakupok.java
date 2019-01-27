@@ -1,45 +1,49 @@
-
-
 public class SpisokZakupok {
 
     private String nomerPZ;
-    private String empName;
+    private String NomerZakupkiEIS;
 
-    private String salary;
+    private String nazvanieLota;
     private String nachalnayaMaxCenalota;
     private String srokIspolneniyaDogovora;
+    private String razmeshenieIzvesheniya;
+    private String dopolnitelnayaInformachiya;
 
-    public SpisokZakupok(String nomerPZ, String empName,//
-                         String salary, String nachalnayaMaxCenalota, String srokIspolneniyaDogovora) {
+
+    public SpisokZakupok(String nomerPZ, String NomerZakupkiEIS,//
+                         String nazvanieLota, String nachalnayaMaxCenalota, String srokIspolneniyaDogovora, String razmeshenieIzvesheniya, String dopolnitelnayaInformachiya) {
         this.nomerPZ = nomerPZ;
-        this.empName = empName;
-        this.salary = salary;
+        this.NomerZakupkiEIS = NomerZakupkiEIS;
+        this.nazvanieLota = nazvanieLota;
         this.nachalnayaMaxCenalota = nachalnayaMaxCenalota;
         this.srokIspolneniyaDogovora = srokIspolneniyaDogovora;
+        this.razmeshenieIzvesheniya = razmeshenieIzvesheniya;
+        this.dopolnitelnayaInformachiya = dopolnitelnayaInformachiya;
+
     }
 
-    public String getEmpNo() {
+    public String getnomerPZ() {
         return nomerPZ;
     }
 
-    public void setEmpNo(String nomerPZ) {
+    public void setnomerPZ(String nomerPZ) {
         this.nomerPZ = nomerPZ;
     }
 
-    public String getEmpName() {
-        return empName;
+    public String getNomerZakupkiEIS() {
+        return NomerZakupkiEIS;
     }
 
-    public void setEmpName(String empName) {
-        this.empName = empName;
+    public void setNomerZakupkiEIS(String NomerZakupkiEIS) {
+        this.NomerZakupkiEIS = NomerZakupkiEIS;
     }
 
-    public String getSalary() {
-        return salary;
+    public String getnazvanieLota() {
+        return nazvanieLota;
     }
 
-    public void setSalary(String salary) {
-        this.salary = salary;
+    public void setnazvanieLota(String nazvanieLota) {
+        this.nazvanieLota = nazvanieLota;
     }
 
     public String getNachalnayaMaxCenalota() {
@@ -58,5 +62,20 @@ public class SpisokZakupok {
         this.srokIspolneniyaDogovora = srokIspolneniyaDogovora;
     }
 
+    public String getrazmeshenieIzvesheniya() {
+        return razmeshenieIzvesheniya;
+    }
+
+    public void setrazmeshenieIzvesheniya(String razmeshenieIzvesheniya) {
+        this.razmeshenieIzvesheniya = razmeshenieIzvesheniya;
+    }
+
+    public String getdopolnitelnayaInformachiya() {
+        return dopolnitelnayaInformachiya;
+    }
+
+    public void setdopolnitelnayaInformachiya(String dopolnitelnayaInformachiya) {
+        this.dopolnitelnayaInformachiya = dopolnitelnayaInformachiya;
+    }
 
 }
