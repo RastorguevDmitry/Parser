@@ -2,28 +2,28 @@
 
 public class Employee {
 
-    private String empNo;
+    private String nomerPZ;
     private String empName;
 
-    private Double salary;
-    private int grade;
-    private Double bonus;
+    private String salary;
+    private String nachalnayaMaxCenalota;
+    private String srokIspolneniyaDogovora;
 
-    public Employee(String empNo, String empName,//
-                    Double salary, int grade, Double bonus) {
-        this.empNo = empNo;
+    public Employee(String nomerPZ, String empName,//
+                    String salary, String nachalnayaMaxCenalota, String srokIspolneniyaDogovora) {
+        this.nomerPZ = nomerPZ;
         this.empName = empName;
         this.salary = salary;
-        this.grade = grade;
-        this.bonus = bonus;
+        this.nachalnayaMaxCenalota = nachalnayaMaxCenalota;
+        this.srokIspolneniyaDogovora = srokIspolneniyaDogovora;
     }
 
     public String getEmpNo() {
-        return empNo;
+        return nomerPZ;
     }
 
-    public void setEmpNo(String empNo) {
-        this.empNo = empNo;
+    public void setEmpNo(String nomerPZ) {
+        this.nomerPZ = nomerPZ;
     }
 
     public String getEmpName() {
@@ -34,28 +34,28 @@ public class Employee {
         this.empName = empName;
     }
 
-    public Double getSalary() {
+    public String getSalary() {
         return salary;
     }
 
-    public void setSalary(Double salary) {
+    public void setSalary(String salary) {
         this.salary = salary;
     }
 
-    public int getGrade() {
-        return grade;
+    public String getNachalnayaMaxCenalota() {
+        return nachalnayaMaxCenalota;
     }
 
-    public void setGrade(int grade) {
-        this.grade = grade;
+    public void setNachalnayaMaxCenalota(String nachalnayaMaxCenalota) {
+        this.nachalnayaMaxCenalota = nachalnayaMaxCenalota;
     }
 
-    public Double getBonus() {
-        return bonus;
+    public String getSrokIspolneniyaDogovora() {
+        return srokIspolneniyaDogovora;
     }
 
-    public void setBonus(Double bonus) {
-        this.bonus = bonus;
+    public void setSrokIspolneniyaDogovora(String srokIspolneniyaDogovora) {
+        this.srokIspolneniyaDogovora = srokIspolneniyaDogovora;
     }
 
 
