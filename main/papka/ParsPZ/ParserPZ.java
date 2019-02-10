@@ -1,7 +1,12 @@
+package ParsPZ;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import MyWindow.*;
+import MainPackage.*;
 
 
 import java.io.IOException;
@@ -10,22 +15,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Parser {
+public class ParserPZ {
+
+    public String filePath;
+
 
 
     private static Document getPage(int str) throws IOException {
 
-        String url1 = "http://zakupki.gov.ru/223/plan/public/plan/info/positions.html?planInfoId=2897106&planId=377214&d-5492750-p=";
-        String url2 = "&versioned=&activeTab=4&epz=true";
-
-        Document page = Jsoup.parse(new URL(url1 + str + url2), 60000);
+        String url = "http://zakupki.gov.ru/223/plan/public/plan/info/positions.html?planInfoId=" +
+                "2897106&planId=377214&d-5492750-p=" + str + "&versioned=&activeTab=4&epz=true";
+        Document page = Jsoup.parse(new URL(url), 60000);
         return page;
     }
 
-    public static void main(String[] args) throws Exception {
+    public  ParserPZ() throws Exception {
 
-        List<SpisokZakupok> list = new ArrayList<SpisokZakupok>();
-        for (int str = 1; str <= 2; str++) {
+
+        List<ParsPZ.SpisokZakupok> list = new ArrayList<ParsPZ.SpisokZakupok>();
+        for (int str = 1; str <= 1; str++) {
             Document page = getPage(str);
             Element spisokZakupokNaStraniche = page.select("tbody").get(3);
             Elements zakupokiSClassomODD = spisokZakupokNaStraniche.select("tr");
@@ -36,7 +44,7 @@ public class Parser {
 
                 //Разбор яцейки с номером плана закупки
                 String nomerPZElement = td.get(0).select("td[style=text-align:left; width:60px;]").text();
-                String nomerPZ = MyPatterns.getDateFromString(nomerPZElement);
+                String nomerPZ = ParsPZ.MyPatterns.getDateFromString(nomerPZElement);
                 //Разбор яцейки с названием лота
                 String nazvanieLota = td.get(1).text();
                 //Разбор яцейки НАЧАЛЬНАЯ МАКСИМАЛЬНАЯ ЦЕНА ДОГОВОРА
@@ -47,16 +55,18 @@ public class Parser {
                 String srokIspolneniyaDogovora = td.get(4).text();
                 //Разбор яцейки  ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ
                 String dopolnitelnayaInformachiya = td.get(5).text();
-                String NomerZakupkiEIS = MyPatterns.getNomerZakupkiEISFromString(dopolnitelnayaInformachiya);
+                String NomerZakupkiEIS = ParsPZ.MyPatterns.getNomerZakupkiEISFromString(dopolnitelnayaInformachiya);
 
-                SpisokZakupok e1 = new SpisokZakupok(nomerPZ, NomerZakupkiEIS, nazvanieLota,//
+                ParsPZ.SpisokZakupok e1 = new ParsPZ.SpisokZakupok(nomerPZ, NomerZakupkiEIS, nazvanieLota,//
                         nachalnayaMaxCenalota, srokIspolneniyaDogovora, razmeshenieIzvesheniya, dopolnitelnayaInformachiya);
                 list.add(e1);
 
             }
         }
-        new ZapisVFile(list);
+        ZapisVFile zapisVFile = new ZapisVFile(list);
+        filePath = zapisVFile.filePath;
     }
+
 
 }
 

@@ -1,3 +1,5 @@
+package ParsPZ;
+
 public class SpisokZakupok {
 
     private String nomerPZ;
@@ -10,8 +12,9 @@ public class SpisokZakupok {
     private String dopolnitelnayaInformachiya;
 
 
-    public SpisokZakupok(String nomerPZ, String NomerZakupkiEIS,//
-                         String nazvanieLota, String nachalnayaMaxCenalota, String srokIspolneniyaDogovora, String razmeshenieIzvesheniya, String dopolnitelnayaInformachiya) {
+    public SpisokZakupok(String nomerPZ, String NomerZakupkiEIS,
+                         String nazvanieLota, String nachalnayaMaxCenalota, String srokIspolneniyaDogovora,
+                         String razmeshenieIzvesheniya, String dopolnitelnayaInformachiya) {
         this.nomerPZ = nomerPZ;
         this.NomerZakupkiEIS = NomerZakupkiEIS;
         this.nazvanieLota = nazvanieLota;
