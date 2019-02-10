@@ -1,4 +1,4 @@
-package MainPackage;
+package ParsIzveschenEIS;
 
 import ParsPZ.SpisokZakupok;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class ZapisVFile {
+public class ZapisVFileParsIzveschenEIS {
 
     public String filePath;
 
@@ -29,11 +29,11 @@ public class ZapisVFile {
         return style;
     }
 
-    public ZapisVFile(List<SpisokZakupok> list) throws IOException {
+    public ZapisVFileParsIzveschenEIS(List<SpisokIzvescheniyEIS> list) throws IOException {
 
 
         HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet("Список номеров ПЗ из ЕИС");
+        HSSFSheet sheet = workbook.createSheet("Список Извещений из ЕИС");
 
 
         int rownum = 0;
@@ -46,59 +46,59 @@ public class ZapisVFile {
 
         //
         cell = row.createCell(0, CellType.STRING);
-        cell.setCellValue("Номер закупки из плана закупки ЕИС");
-        cell.setCellStyle(style);
-        //
-        cell = row.createCell(1, CellType.STRING);
         cell.setCellValue("Номер измещения ЕИС");
         cell.setCellStyle(style);
         //
-        cell = row.createCell(2, CellType.STRING);
+        cell = row.createCell(1, CellType.STRING);
         cell.setCellValue("Название лота");
         cell.setCellStyle(style);
         //
-        cell = row.createCell(3, CellType.STRING);
+        cell = row.createCell(2, CellType.STRING);
         cell.setCellValue("НАЧАЛЬНАЯ МАКСИМАЛЬНАЯ ЦЕНА ДОГОВОРА");
         cell.setCellStyle(style);
         //
+        cell = row.createCell(3, CellType.STRING);
+        cell.setCellValue("Способ закупки");
+        cell.setCellStyle(style);
+        //
         cell = row.createCell(4, CellType.STRING);
-        cell.setCellValue("СРОК ИСПОЛНЕНИЯ ДОГОВОРА");
+        cell.setCellValue("Этап");
         cell.setCellStyle(style);
         //
-        cell = row.createCell(5, CellType.STRING);
-        cell.setCellValue("РАЗМЕЩЕНИЕ ИЗВЕЩЕНИЯ");
-        cell.setCellStyle(style);
-        //
-        cell = row.createCell(6, CellType.STRING);
-        cell.setCellValue("ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ");
-        cell.setCellStyle(style);
+//        cell = row.createCell(5, CellType.STRING);
+//        cell.setCellValue("РАЗМЕЩЕНИЕ ИЗВЕЩЕНИЯ");
+//        cell.setCellStyle(style);
+//        //
+//        cell = row.createCell(6, CellType.STRING);
+//        cell.setCellValue("ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ");
+//        cell.setCellStyle(style);
 
         // Data
-        for (SpisokZakupok emp : list) {
+        for (SpisokIzvescheniyEIS emp : list) {
             rownum++;
             row = sheet.createRow(rownum);
 
             //
             cell = row.createCell(0, CellType.STRING);
-            cell.setCellValue(emp.getnomerPZ());
-            //
-            cell = row.createCell(1, CellType.STRING);
             cell.setCellValue(emp.getNomerZakupkiEIS());
             //
-            cell = row.createCell(2, CellType.STRING);
+            cell = row.createCell(1, CellType.STRING);
             cell.setCellValue(emp.getnazvanieLota());
             //
-            cell = row.createCell(3, CellType.STRING);
+            cell = row.createCell(2, CellType.STRING);
             cell.setCellValue(emp.getNachalnayaMaxCenalota());
             //
+            cell = row.createCell(3, CellType.STRING);
+            cell.setCellValue(emp.getsposobZakupki());
+            //
             cell = row.createCell(4, CellType.STRING);
-            cell.setCellValue(emp.getSrokIspolneniyaDogovora());
-            //РАЗМЕЩЕНИЕ ИЗВЕЩЕНИЯ
-            cell = row.createCell(5, CellType.STRING);
-            cell.setCellValue(emp.getrazmeshenieIzvesheniya());
-            // ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ
-            cell = row.createCell(6, CellType.STRING);
-            cell.setCellValue(emp.getdopolnitelnayaInformachiya());
+            cell.setCellValue(emp.getetapZakupki());
+//            //РАЗМЕЩЕНИЕ ИЗВЕЩЕНИЯ
+//            cell = row.createCell(5, CellType.STRING);
+//            cell.setCellValue(emp.getrazmeshenieIzvesheniya());
+//            // ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ
+//            cell = row.createCell(6, CellType.STRING);
+//            cell.setCellValue(emp.getdopolnitelnayaInformachiya());
 
 //            String formula = "0.1*C" + (rownum + 1) + "*D" + (rownum + 1);
 //            cell = row.createCell(4, CellType.FORMULA);

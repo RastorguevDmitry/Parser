@@ -34,28 +34,30 @@ public class ParsIzvescheniyaEIS {
         return page;
     }
 
-
     public  ParsIzvescheniyaEIS() throws Exception {
 
         Document page = getPage();
         List<SpisokIzvescheniyEIS> list = new ArrayList<SpisokIzvescheniyEIS>();
 
            // Element spisokZakupokNaStraniche = page.select("div[class=\"paginator greyBox \"]").get(1);
-            //div class="registerBox registerBoxBank margBtm20"
             Elements zakupokiSClassomODD = page.select("div[class=\"registerBox registerBoxBank margBtm20\"]");
-          //  Elements zakupokiSClassomEVEN = spisokZakupokNaStraniche.select("tr[class=even]");
+
 
             for (Element name : zakupokiSClassomODD) {      //перебираем закупки на странице
 
                 Elements td = name.select("strong");
                 String sposobZakupki = td.get(0).text();
                 String nachalnayaMaxCenalota  = td.get(1).text();
-
-                //class="fzNews noWrap">Подача заявок /
-                String etapZakupki = name.select("span[class=\"fzNews noWrap\"]").text();
+                nachalnayaMaxCenalota = nachalnayaMaxCenalota.replaceAll(" ","");
+                nachalnayaMaxCenalota = nachalnayaMaxCenalota.replaceAll(" ","");
+                //этап
+                Elements span = name.select("span");
+                String etapZakupki = span.get(0).text();
+                etapZakupki = etapZakupki.substring(0, etapZakupki.indexOf("/")-1);
 
                 //class="descriptTenderTd"
-                String NomerZakupkiEIS = ParsPZ.MyPatterns.getNomerZakupkiEISFromString(name.select("td[class=\"descriptTenderTd\"]").text());
+                String NomerZakupkiEIS = ParsPZ.MyPatterns.getNomerZakupkiEISFromString(name.select(
+                        "td[class=\"descriptTenderTd\"]").text());
 
                 Elements dd = name.select("dd");
                 String nazvanieLota = dd.get(4).text();
@@ -67,13 +69,10 @@ public class ParsIzvescheniyaEIS {
                         sposobZakupki,
                         nachalnayaMaxCenalota);
                 list.add(e1);
-
             }
 
-
-
-//        ZapisVFile zapisVFile = new ZapisVFile(list);
-//        filePath = zapisVFile.filePath;
+        ZapisVFileParsIzveschenEIS zapisVFileParsIzveschenEIS = new ZapisVFileParsIzveschenEIS(list);
+        filePath = zapisVFileParsIzveschenEIS.filePath;
     }
 
 

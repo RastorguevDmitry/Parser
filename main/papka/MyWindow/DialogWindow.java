@@ -7,19 +7,19 @@ import java.awt.event.ActionListener;
 
 public class DialogWindow extends JDialog {
 
-     private JTextField name = new JTextField(); // текстовое поле
+    private JTextField name = new JTextField(); // текстовое поле
     private String stringName;
-   // private JButton okButton = new JButton("Ок");
+    // private JButton okButton = new JButton("Ок");
     private boolean ready = false;
 
-    public DialogWindow(JFrame jframe, String path){
+    public DialogWindow(JFrame jframe, String path) {
 
         super(jframe, "Данные скачены", true);
 
-         JButton okButton = new JButton("Ок");
+        JButton okButton = new JButton("Ок");
         JLabel nameWhotHappen = new JLabel("Файл: " + path);
-        setLayout(new GridLayout(2,2,5,5));
-        setSize(400,200);
+        setLayout(new GridLayout(2, 2, 5, 5));
+        setSize(400, 200);
 
         okButton.addActionListener(new ActionListener() {
             @Override
@@ -30,7 +30,7 @@ public class DialogWindow extends JDialog {
             }
         });
 
-       // getContentPane().add(name);
+        // getContentPane().add(name);
         getContentPane().add(nameWhotHappen);
         getContentPane().add(okButton);
 

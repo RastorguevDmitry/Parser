@@ -29,18 +29,18 @@ public class MyWindow extends JFrame {
     public static String dateBegin, dateEnd;
 
 
-    public MyWindow(){
+    public MyWindow() {
         super("Работа с закупками");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(true);
-       // mainWindowForChois.setLayout( new BorderLayout(5,5));
-        mainWindowForChois.setLayout(new GridLayout(3,1,5,5));
-        mainWindowForChois.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-        panelForPZ.setLayout(new GridLayout(1,3,5,5));
-        panelForIzvescheniya.setLayout(new GridLayout(1,3,5,5));
-        panelForDogovory.setLayout(new GridLayout(1,3,5,5));
+        // mainWindowForChois.setLayout( new BorderLayout(5,5));
+        mainWindowForChois.setLayout(new GridLayout(3, 1, 5, 5));
+        mainWindowForChois.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        panelForPZ.setLayout(new GridLayout(1, 3, 5, 5));
+        panelForIzvescheniya.setLayout(new GridLayout(1, 3, 5, 5));
+        panelForDogovory.setLayout(new GridLayout(1, 3, 5, 5));
 
-       // Слушатель нажатия кнопки "Найти объявленные закупки"
+        // Слушатель нажатия кнопки "Найти объявленные закупки"
         buttonNewFindIzvescheniya.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -68,17 +68,12 @@ public class MyWindow extends JFrame {
                     Calendar cal = Calendar.getInstance(); //текущее время
                     SimpleDateFormat s = new SimpleDateFormat("dd.MM.yyyy");
                     dateEnd = s.format(new Date(cal.getTimeInMillis())); //текущая дата в формате
-                    cal.add(Calendar.DATE, -7); // от текущей минус 7 дней
+                    cal.add(Calendar.DATE, -50); // от текущей минус 7 дней
                     dateBegin = s.format(new Date(cal.getTimeInMillis())); //дата начала периода в формате
 
                     ParsIzvescheniyaEIS parsIzvescheniyaEIS = new ParsIzvescheniyaEIS();
 
-
-
-
-
-
-//                    DialogWindow dialogWindow = new DialogWindow(MyWindow.this, parserPZ.name);
+                    DialogWindow dialogWindow = new DialogWindow(MyWindow.this, parsIzvescheniyaEIS.filePath);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
@@ -91,7 +86,7 @@ public class MyWindow extends JFrame {
         panelForDogovory.add(buttonForDogovory);
 
 
-       // mainWindowForChois.setLayout(new GridLayout());
+        // mainWindowForChois.setLayout(new GridLayout());
 
         // добавление панелей в основоное окно
 
@@ -99,17 +94,15 @@ public class MyWindow extends JFrame {
         mainWindowForChois.add(panelForIzvescheniya);
         mainWindowForChois.add(panelForDogovory);
 
-       // mainWindowForChois.add(panelForIzvescheniya,BorderLayout.SOUTH);
+        // mainWindowForChois.add(panelForIzvescheniya,BorderLayout.SOUTH);
 
 
         getContentPane().add(mainWindowForChois);
-        setSize(600,600);
+        setSize(600, 600);
         setLocationRelativeTo(null); // посередине
         setVisible(true);
 
     }
-
-
 
 
 }

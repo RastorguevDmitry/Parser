@@ -2,15 +2,11 @@ package ParsIzveschenEIS;
 
 public class SpisokIzvescheniyEIS {
 
-
-
     private String NomerZakupkiEIS;
     private String nazvanieLota;
     private String nachalnayaMaxCenalota;
-
     private String sposobZakupki;
     private String etapZakupki;
-
 
     public SpisokIzvescheniyEIS(
             String NomerZakupkiEIS,
@@ -18,8 +14,7 @@ public class SpisokIzvescheniyEIS {
             String etapZakupki,
             String sposobZakupki,
             String nachalnayaMaxCenalota
-            ) {
-
+    ) {
         this.NomerZakupkiEIS = NomerZakupkiEIS;
         this.nazvanieLota = nazvanieLota;
         this.etapZakupki = etapZakupki;

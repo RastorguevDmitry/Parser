@@ -4,21 +4,17 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import MyWindow.*;
-import MainPackage.*;
-
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import MyWindow.*;
+import MainPackage.*;
 
 
 public class ParserPZ {
 
     public String filePath;
-
 
 
     private static Document getPage(int str) throws IOException {
@@ -29,7 +25,7 @@ public class ParserPZ {
         return page;
     }
 
-    public  ParserPZ() throws Exception {
+    public ParserPZ() throws Exception {
 
 
         List<ParsPZ.SpisokZakupok> list = new ArrayList<ParsPZ.SpisokZakupok>();
