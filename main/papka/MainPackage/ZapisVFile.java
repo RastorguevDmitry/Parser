@@ -1,3 +1,6 @@
+package MainPackage;
+
+import ParsPZ.SpisokZakupok;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -15,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 
 public class ZapisVFile {
+
+    public String filePath;
 
     private static HSSFCellStyle createStyleForTitle(HSSFWorkbook workbook) {
         HSSFFont font = workbook.createFont();
@@ -39,23 +44,23 @@ public class ZapisVFile {
 
         row = sheet.createRow(rownum);
 
-        // EmpNo
+        //
         cell = row.createCell(0, CellType.STRING);
         cell.setCellValue("Номер закупки из плана закупки ЕИС");
         cell.setCellStyle(style);
-        // EmpName
+        //
         cell = row.createCell(1, CellType.STRING);
         cell.setCellValue("Номер измещения ЕИС");
         cell.setCellStyle(style);
-        // Salary
+        //
         cell = row.createCell(2, CellType.STRING);
         cell.setCellValue("Название лота");
         cell.setCellStyle(style);
-        // Grade
+        //
         cell = row.createCell(3, CellType.STRING);
         cell.setCellValue("НАЧАЛЬНАЯ МАКСИМАЛЬНАЯ ЦЕНА ДОГОВОРА");
         cell.setCellStyle(style);
-        // Bonus
+        //
         cell = row.createCell(4, CellType.STRING);
         cell.setCellValue("СРОК ИСПОЛНЕНИЯ ДОГОВОРА");
         cell.setCellStyle(style);
@@ -95,16 +100,10 @@ public class ZapisVFile {
             cell = row.createCell(6, CellType.STRING);
             cell.setCellValue(emp.getdopolnitelnayaInformachiya());
 
-
-
-
-
-
 //            String formula = "0.1*C" + (rownum + 1) + "*D" + (rownum + 1);
 //            cell = row.createCell(4, CellType.FORMULA);
 //            cell.setCellFormula(formula);
         }
-
 
         DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd_HH-mm-s"); // формат для названия файла
         Date date = new Date();
@@ -115,9 +114,7 @@ public class ZapisVFile {
         FileOutputStream outFile = new FileOutputStream(file);
         workbook.write(outFile);
         System.out.println("Created file: " + file.getAbsolutePath());
-
-
+        filePath = file.getPath();
     }
-
 
 }
