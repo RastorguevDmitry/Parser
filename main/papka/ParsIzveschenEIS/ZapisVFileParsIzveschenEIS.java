@@ -32,6 +32,7 @@ public class ZapisVFileParsIzveschenEIS {
     public ZapisVFileParsIzveschenEIS(List<SpisokIzvescheniyEIS> list) throws IOException {
 
 
+
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Список Извещений из ЕИС");
 
